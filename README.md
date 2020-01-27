@@ -1,4 +1,4 @@
-# promethee
+# PROMETHEE
 Helper Algoritma PROMETHEE pada PHP
 
 # Preference Ranking Organization for Enrichment Evaluation
@@ -13,3 +13,10 @@ Promethee ini sendiri termasuk dalam keluarga dari metode outranking yang dikemb
 1. Membangun hubungan outranking dari K
 2. Eksploitasi dari hubungan ini memberikan jawaban optimasi kriteria dalam paradigma permasalahan multikriteria.
 
+## Langkah-langkah PROMETHEE :
+1. Menentukan kriteria
+2. Menentukan bobot atau nilai dari masing2 kriteria
+3. Menentukan tipe preferensi untuk menentukan tipe perhitungan dalam mengolah alternatif.
+4. Menentukan hasil nilai prefrensi berdasarkan tipe preferensi yang ditentukan
+5. Menentukan nilai index preferensi untuk menghitung nilai preferensi dari masing2 kriteria
+6. Menentukan promethee ranking yang terdiri dari nilai promethee I dan nilai promethee II. Nilai promethee I menentukan nilai Leaving Flow, Entering Flow. Pada promethee II menentukan nilai Net Flow.
