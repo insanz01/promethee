@@ -154,9 +154,13 @@ class Promethee {
     for($i = 0; $i < count($result); $i++) {
       for($j = 0; $j < $i; $j++) {
         if($result[$i]['score'] > $result[$j]['score']) {
-          $temp = $result[$i]['score'];
+          $temp_score = $result[$i]['score'];
           $result[$i]['score'] = $result[$j]['score'];
-          $result[$j]['score'] = $temp;
+          $result[$j]['score'] = $temp_score;
+
+          $temp_label = $result[$i]['label'];
+          $result[$i]['label'] = $result[$j]['label'];
+          $result[$j]['label'] = $temp_label;
         }
       }
     }
