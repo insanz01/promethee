@@ -1,7 +1,9 @@
 <?php
 // buatan sendiri
 // home made, lagi galau nunggu do'i
-// TODO: algoritma promethee untuk menentukan karyawan yang kompeten
+
+# TODO: algoritma promethee untuk menentukan karyawan yang kompeten
+# TODO: tanggal 2 februari ultah dia, beliin apa ya ? kau tau ga ten ??
 
 class Promethee {
   private $data = [];
@@ -126,12 +128,14 @@ class Promethee {
     }
 
     for($i = 0; $i < count($sumNormalize); $i++) {
-      $temp = 0;
+      $temp = 0; // reset nilai variabel sementara
       for($j = 0; $j < count($sumNormalize[$i]); $j++) {
         if($sumNormalize[$i][$j] > 0) {
           $temp += $sumNormalize[$i][$j];
         }
       }
+
+      // selalu kurang 1, karena 1 kolom adalah perbandingan atas kategorinya sendiri
       $aggregate_pos[] = $temp / (count($sumNormalize[$i])-1);
     }
 
@@ -142,6 +146,8 @@ class Promethee {
           $temp += $sumNormalize[$j][$i];
         }
       }
+
+      // selalu kurang 1, karena 1 kolom adalah perbandingan atas kategorinya sendiri
       $aggregate_neg[] = $temp / (count($sumNormalize[$i])-1);
     }
 
