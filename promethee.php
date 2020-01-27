@@ -1,4 +1,7 @@
 <?php
+// buatan sendiri
+// home made, lagi galau nunggu do'i
+// TODO: algoritma promethee untuk menentukan karyawan yang kompeten
 
 class Promethee {
   private $data = [];
@@ -13,7 +16,8 @@ class Promethee {
     // data must be array2D of float / int
     // label must be array of string
     // priority must be array of float
-    // aspect must be array of string
+    // cost_benefit must be array of string
+    // merk maybe need fix
     $this->data = $data;
     $this->label = $label;
     $this->priority = $priority;
@@ -21,6 +25,7 @@ class Promethee {
     $this->candidate = $merk;
   }
 
+  // you can get list of max number
   private function getMax() {
     $max = [];
     for($i = 0; $i < count($this->label); $i++) {
@@ -29,15 +34,16 @@ class Promethee {
 
     for($i = 0; $i < count($this->label); $i++) {
       for($j = 0; $j < count($this->data); $j++) {
-          if($this->data[$j][$i] > $max[$i]) {
-            $max[$i] = $this->data[$j][$i];
-          }
+        if($this->data[$j][$i] > $max[$i]) {
+          $max[$i] = $this->data[$j][$i];
+        }
       }
     }
 
     return $max;
   }
 
+  // you can get list of min number
   private function getMin() {
     $min = [];
     for($i = 0; $i < count($this->label); $i++) {
@@ -46,15 +52,16 @@ class Promethee {
 
     for($i = 0; $i < count($this->label); $i++) {
       for($j = 0; $j < count($this->data); $j++) {
-          if($this->data[$j][$i] < $min[$i]) {
-            $min[$i] = $this->data[$j][$i];
-          }
+        if($this->data[$j][$i] < $min[$i]) {
+          $min[$i] = $this->data[$j][$i];
+        }
       }
     }
 
     return $min;
   }
 
+  // to get difference by sub category by category
   private function promethee2($satu, $dua) {
     $hasil = $satu - $dua;
     if($hasil < 0) return (float)0;
@@ -62,6 +69,7 @@ class Promethee {
     return $hasil;
   }
 
+  // full algorithm for promethee
   public function getResult() {
     $normalize = [];
     $afterNormalize = [];
@@ -93,6 +101,7 @@ class Promethee {
         for($k = 0; $k < count($this->label); $k++) {
           if($j != $i) {
             $temp[$k] = $this->promethee2($normalize[$k][$i], $normalize[$k][$j]);
+            # uncomment if you want to see diff score
             // echo "Promethee II : ".$i." dan ".$j." adalah : ".$temp[$k]."<br>";
           } else {
             $temp[$k] = -1;
@@ -141,6 +150,7 @@ class Promethee {
       $result[$i] = ['label' => $this->candidate[$i], 'score' => $diff_result[$i]];
     }
 
+    // sorting using bubble sort algorithm
     for($i = 0; $i < count($result); $i++) {
       for($j = 0; $j < $i; $j++) {
         if($result[$i]['score'] > $result[$j]['score']) {
@@ -151,8 +161,9 @@ class Promethee {
       }
     }
 
+    // result must be array assocciate
+    // label and score
     return $result;
-
   }
 }
 
