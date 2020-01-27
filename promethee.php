@@ -1,9 +1,10 @@
 <?php
 // buatan sendiri
 // home made, lagi galau nunggu do'i
+// lama kali ini KKN, baru hari pertama udah berasa lama banget
 
 # TODO: algoritma promethee untuk menentukan karyawan yang kompeten
-# TODO: tanggal 2 februari ultah dia, beliin apa ya ? kau tau ga ten ??
+# TODO: tanggal 2 februari ultah dia, beliin apa ya ? ada saran ga ten ??
 
 class Promethee {
   private $data = [];
@@ -66,6 +67,8 @@ class Promethee {
   // to get difference by sub category by category
   private function promethee2($satu, $dua) {
     $hasil = $satu - $dua;
+
+    // jika nilai minus, maka akan diubah menjadi angka 0
     if($hasil < 0) return (float)0;
 
     return $hasil;
@@ -76,14 +79,16 @@ class Promethee {
     $normalize = [];
     $afterNormalize = [];
     $sumNormalize = [];
-    $aggregate_pos = [];
-    $aggregate_neg = [];
-    $diff_result = [];
-    $result = [];
+    $aggregate_pos = []; // agregasi untuk bagian positif
+    $aggregate_neg = []; // agregasi untuk bagian negatif
+    $diff_result = []; // hasil dari agregasi positif - agregasi negatif
+    $result = []; // hasil dari rekomendasi
 
+    // mencari nilai maksimum dan minimum
     $this->max = $this->getMax();
     $this->min = $this->getMin();
 
+    # TODO: melakukan normalisasi
     for($i = 0; $i < count($this->label); $i++) {
       $temp = [];
       $pembagi = $this->max[$i] - $this->min[$i];
@@ -97,6 +102,7 @@ class Promethee {
       $normalize[] = $temp;
     }
 
+    # TODO: melakukan normalisasi dengan cara mencari nilai selisih
     for($i = 0; $i < count($normalize[0]); $i++) {
       $temp = [];
       for($j = 0; $j < count($normalize[0]); $j++) {
@@ -113,6 +119,7 @@ class Promethee {
       }
     }
 
+    # TODO: melakukan perkalian dengan nilai bobot yang telah ditentukan ke dalam variabel priority
     $count = 0;
     for($i = 0; $i < count($afterNormalize); $i++) {
       $temp = 0;
@@ -127,6 +134,7 @@ class Promethee {
         $sumNormalize[] = $x;
     }
 
+    # TODO: mencari agregasi positif
     for($i = 0; $i < count($sumNormalize); $i++) {
       $temp = 0; // reset nilai variabel sementara
       for($j = 0; $j < count($sumNormalize[$i]); $j++) {
@@ -134,11 +142,11 @@ class Promethee {
           $temp += $sumNormalize[$i][$j];
         }
       }
-
       // selalu kurang 1, karena 1 kolom adalah perbandingan atas kategorinya sendiri
       $aggregate_pos[] = $temp / (count($sumNormalize[$i])-1);
     }
 
+    # TODO: mencari agregasi negatif
     for($i = 0; $i < count($sumNormalize[0]); $i++) {
       $temp = 0;
       for($j = 0; $j < count($sumNormalize); $j++) {
@@ -151,6 +159,7 @@ class Promethee {
       $aggregate_neg[] = $temp / (count($sumNormalize[$i])-1);
     }
 
+    # TODO: mencari bobot agregasi sebagai hasil dengan cara (agregasi positif - agregasi negatif)
     for($i = 0; $i < count($aggregate_pos); $i++) {
       $diff_result[$i] = $aggregate_pos[$i] - $aggregate_neg[$i];
       $result[$i] = ['label' => $this->candidate[$i], 'score' => $diff_result[$i]];
@@ -159,7 +168,9 @@ class Promethee {
     // sorting using bubble sort algorithm
     for($i = 0; $i < count($result); $i++) {
       for($j = 0; $j < $i; $j++) {
+        // mengurutkan dari yang terbesar
         if($result[$i]['score'] > $result[$j]['score']) {
+          # TODO: melakukan swap
           $temp_score = $result[$i]['score'];
           $result[$i]['score'] = $result[$j]['score'];
           $result[$j]['score'] = $temp_score;
@@ -176,5 +187,10 @@ class Promethee {
     return $result;
   }
 }
+
+// numpang curhat yaa ten.. wkwkwk
+// sebenernya sekarang lagi kerja sih.. cuman udah pada kelar..
+// gegara habis kerjaannya, jadi meracau sendiri di komentar program..
+// semoga ga kebawa pas presentasi yaa ten.. wkwk
 
 ?>
