@@ -1,5 +1,6 @@
 <?php
-
+  # PROGRAM INI DIBUAT DENGAN KEGALAUAN DAN HATI YANG GELISAH
+  # CODE WITH LOVE
   include "promethee.php";
 
   $label = ["Kamera", "Baterai", "Harga"];
@@ -17,6 +18,9 @@
 
   $cost_benefit = ["benefit", "benefit", "cost"];
 
+  # cara manggil programnya disini
+  # TODO: lakukan instansiasi pada variabel baru, kemudian masukan parameter tersebut
+  // urutan parameternya : data -> label -> priority -> cost atau benefit -> merk (sesuaikan kasusmu)
   $promethee = new Promethee($data, $label, $priority, $cost_benefit, $merk);
   $prioritas = $promethee->getResult();
 
